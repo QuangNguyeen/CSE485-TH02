@@ -28,7 +28,7 @@ body {
     color: white;
     padding: 10px 20px;
     margin-bottom: 20px;
-    
+
 }
 
 .header-content .btn {
@@ -114,11 +114,11 @@ body {
     <header class="header">
         <div class="header-content d-flex justify-content-between">
            <div class = "left d-flex align-items-center ">
-           <div class="icon mr-2">N1</div> 
-           <div> Trời lạnh do thiếu em (0 độ)</div>
+           <div class="icon mr-2"></div>
+           <div>THUY LOI UNIVERSITY NEWS</div>
            </div>
            <div>
-            <button class="btn">Thông tin</button>
+            <button class="btn">About</button>
             <button class="btn logout">Log Out</button>
             </div>
         </div>
@@ -143,7 +143,7 @@ body {
             <p>DETAIL NEWS</p>
         </div>
         <div class="news-item small">
-          
+
             <div class="image"></div>
             <p>DETAIL NEWS</p>
         </div>
@@ -152,7 +152,7 @@ body {
             <p>DETAIL NEWS</p>
         </div>
         <div class="news-item small">
-           
+
             <div class="image"></div>
             <p>DETAIL NEWS</p>
         </div>

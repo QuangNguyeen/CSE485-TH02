@@ -35,7 +35,7 @@
             <input type="password" id="password" name="password" class="form-control" required>
         </div>
         <div class="mb-3 text-center">
-            <button type="submit" class="btn btn-success w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
         </div>
         <div class="text-center">
             <a href="../../index.php?controller=admin&action=index" class="btn btn-secondary">Quit</a>

@@ -4,16 +4,15 @@ class News{
     private $title;
     private $content;
     private $image;
-    private $create_at;
-    private $category_id;
+    private $createdAt;
+    private $categoryId;
     // constructor
-    public function __construct($id, $title, $content, $image, $create_at, $category_id){
-        $this->id = $id;
+    public function __construct($title, $content, $image, $createAt, $categoryId){
         $this->title = $title;
         $this->content = $content;
         $this->image = $image;
-        $this->create_at = $create_at;
-        $this->category_id = $category_id;
+        $this->createdAt = $createAt;
+        $this->categoryId = $categoryId;
     }
     // getter and setter
     public function getId(){
@@ -28,11 +27,11 @@ class News{
     public function getImage(){
         return $this->image;
     }
-    public function getCreate_at(){
-        return $this->create_at;
+    public function getCreatedAt(){
+        return $this->createdAt;
     }
     public function getCategoryId(){
-        return $this->category_id;
+        return $this->categoryId;
     }
     public function setTitle($title){
         $this->title = $title;
@@ -43,10 +42,111 @@ class News{
     public function setImage($image){
         $this->image = $image;
     }
-    public function setCreate_at($create_at){
-        $this->create_at = $create_at;
+    public function setCreatedAt($createdAt){
+        $this->createdAt = $createdAt;
     }
-    public function setCategoryId($category_id){
-        $this->category_id = $category_id;
+    public function setCategoryId($categoryId){
+        $this->categoryId = $categoryId;
+    }
+    public function getAll()
+    {
+        $database = new Database();
+        $connection = $database::getConnection();
+        if($connection === null){
+            throw new Exception('Failed to connect to the database.');
+        }
+        try{
+            $sql = "SELECT * FROM NEWS";
+            $statement = $connection->prepare($sql);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }catch (PDOException $e){
+            throw new PDOException('Error ing query.', $e->getMessage());
+        }
+    }
+    public function getByID($id){
+        $database = new Database();
+        $connection = $database::getConnection();
+        if($connection === null){
+            throw new Exception('Failed to connect to the database.');
+        }
+        try{
+            $sql = "SELECT * FROM NEWS WHERE id = :id";
+            $statement = $connection->prepare($sql);
+            $statement ->bindParam(':id', $id, PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }catch (PDOException $e){
+            throw new PDOException('Error ing query.', $e->getMessage());
+        }
+    }
+    public function add()
+    {
+        $database = new Database();
+        $connection = $database::getConnection();
+        if($connection === null){
+            throw new Exception('Failed to connect to the database.');
+        }
+        try{
+            $sql = "INSERT INTO NEWS (title, content, image, createdAt, categoryId) 
+                VALUES (:title, :content, :image, :createdAt, :categoryId)";
+            $statement = $connection->prepare($sql);
+            $statement->bindParam(':title', $this->title, PDO::PARAM_STR);
+            $statement->bindParam(':content', $this->content, PDO::PARAM_STR);
+            $statement->bindParam(':image', $this->image, PDO::PARAM_STR);
+            $statement->bindParam(':createdAt', $this->createAt, PDO::PARAM_STR);
+            $statement->bindParam(':categoryId', $this->categoryId, PDO::PARAM_INT);
+
+            if($this->image === '') $statement->bindValue(':image', null, PDO::PARAM_NULL);
+            if($this->createdAt === '') $statement->bindValue(':createdAt', null, PDO::PARAM_NULL);
+            if($this->categoryId === null) $statement->bindValue(':categoryId', null, PDO::PARAM_NULL);
+
+            $statement->execute();
+
+            $this->id = $connection->lastInsertId();
+        }catch (PDOException $e){
+            throw new Exception('Error adding news: ' . $e->getMessage());
+        }
+    }
+    public function edit($id, $title, $content, $createdAt, $categoryId, $image = null)
+    {
+        $database = new Database();
+        $connection = $database::getConnection();
+        if($connection === null){
+            throw new Exception('Failed to connect to the database.');
+        }
+        try{
+            $sql = "UPDATE NEWS 
+                    SET title = :title, content = :content, image = :image, createdAt = :createdAt, categoryId = :categoryId
+                    WHERE id = :id";
+            $statement = $connection->prepare($sql);
+            $statement->bindParam(':title', $title, PDO::PARAM_STR);
+            $statement->bindParam(':content', $content, PDO::PARAM_STR);
+            $statement->bindParam(':createdAt', $createdAt, PDO::PARAM_STR);
+            $statement->bindParam(':image', $image, PDO::PARAM_STR);
+            $statement->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
+            $statement->bindParam(':id', $id, PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }catch (PDOException $e){
+            throw new PDOException('Error in query.', $e->getMessage());
+        }
+    }
+    public function delete($id) {
+        $database = new Database();
+        $conn = $database->getConnection();
+
+        if ($conn === null) {
+            throw new Exception("Failed to connect in the database.");
+        }
+
+        try {
+            $sql = "DELETE FROM news WHERE id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Error in delete: " . $e->getMessage());
+        }
     }
 }

@@ -5,12 +5,6 @@ class User{
     private $userName;
     private $password;
     private $role;  // 0 is user ; 1 is admin
-    public function __construct($id, $userName, $password, $role){
-        $this->id = $id;
-        $this->userName = $userName;
-        $this->password = $password;
-        $this->role = $role;
-    }
     public function getId(){
         return $this->id;
     }
@@ -44,6 +38,36 @@ class User{
 
         }
         try{
+            $sql = "SELECT ID, USERNAME, PASSWORD, ROLE FROM USERS WHERE username = :userName";
+            $statement = $connection->prepare($sql);
+            $statement->bindParam(':username', $userName);
+            $statement->execute();
+
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+            if($user){
+                if(password_verify($password, $user['password'])){
+                    $this->id = $user['id'];
+                    $this->userName = $user['username'];
+                    $this->password = $user['password'];
+                    $this->role = $user['role'];
+
+                    return [
+                        'success' => true,
+                        'role' => $this->role,
+                        'userId' => $this->id
+                    ];
+                }else{
+                    return [
+                        'success'=> false,
+                        'message'=> 'Invalid password'
+                    ];
+                }
+            }else{
+                return [
+                    'success' => false,
+                    'message'=> 'User not exits'
+                ];
+            }
 
         }catch (PDOException $e){
             throw new Exception('Failed in query database'.$e->getMessage());
