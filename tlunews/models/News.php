@@ -6,14 +6,6 @@ class News{
     private $image;
     private $createdAt;
     private $categoryId;
-    // constructor
-    public function __construct($title, $content, $image, $createAt, $categoryId){
-        $this->title = $title;
-        $this->content = $content;
-        $this->image = $image;
-        $this->createdAt = $createAt;
-        $this->categoryId = $categoryId;
-    }
     // getter and setter
     public function getId(){
         return $this->id;
