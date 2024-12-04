@@ -48,6 +48,8 @@ class News{
     public function setCategoryId($categoryId){
         $this->categoryId = $categoryId;
     }
+
+    // Get all News in Database
     public function getAll()
     {
         $database = new Database();
@@ -64,6 +66,9 @@ class News{
             throw new PDOException('Error ing query.', $e->getMessage());
         }
     }
+
+    // Get New by ID
+    // @param: $id of News
     public function getByID($id){
         $database = new Database();
         $connection = $database::getConnection();
@@ -80,6 +85,8 @@ class News{
             throw new PDOException('Error ing query.', $e->getMessage());
         }
     }
+
+    // Add News
     public function add()
     {
         $database = new Database();
@@ -108,6 +115,10 @@ class News{
             throw new Exception('Error adding news: ' . $e->getMessage());
         }
     }
+
+    // Edit News
+    // @param: $id, $title, $content, $createdAt, $categoryId, $image
+
     public function edit($id, $title, $content, $createdAt, $categoryId, $image = null)
     {
         $database = new Database();
@@ -132,6 +143,8 @@ class News{
             throw new PDOException('Error in query.', $e->getMessage());
         }
     }
+    // Delete news
+    // @param: $id
     public function delete($id) {
         $database = new Database();
         $conn = $database->getConnection();

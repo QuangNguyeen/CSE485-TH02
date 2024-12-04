@@ -29,7 +29,7 @@ class User{
     public function setRole($role){
         $this->role = $role;
     }
-    public function validationLogin($userName, $password)
+    public function validateLogin($userName, $password)
     {
         $db = new Database();
         $connection = $db::getConnection();
