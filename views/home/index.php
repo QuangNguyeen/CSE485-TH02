@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Layout</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
         /* Reset cơ bản */
@@ -86,47 +88,59 @@
         }
     </style>
 </head>
+
 <body>
 
-<?php
-require_once "../../models/News.php"; // Đảm bảo đường dẫn chính xác tới model News
+    <?php
+    require_once "../../models/News.php"; // Đảm bảo đường dẫn chính xác tới model News
+    
+    // Khởi tạo đối tượng News
+    $newsModel = new News();
+    $news = $newsModel->getAll(); // Lấy danh sách tin tức
+    ?>
 
-// Khởi tạo đối tượng News
-$newsModel = new News();
-$news = $newsModel->getAll(); // Lấy danh sách tin tức
-?>
-
-<header class="header">
-    <div class="header-content d-flex justify-content-between">
-       <div class = "left d-flex align-items-center ">
-           <div class="icon mr-2">N1</div> 
-           <div> Trời lạnh do thiếu em (0 độ)</div>
-       </div>
-       <div>
-        <button class="btn">Thông tin</button>
-        <button class="btn logout">Log Out</button>
-       </div>
-    </div>
-</header>
-
-<section class="banner">
-    <div class="banner-content"></div>
-</section>
-
-<section class="grid-news">
-    <?php if (!empty($news)): ?>
-        <?php foreach ($news as $item): ?>
-            <div class="news-item small">
-                <div class="image" style="background-image: url('../../uploads/<?= htmlspecialchars(basename($item['image'])) ?>');"></div>
-                <p><?= htmlspecialchars($item['title']) ?></p>
+    <header class="header">
+        <div class="header-content d-flex justify-content-between">
+            <div class="left d-flex align-items-center ">
+                <div class="icon mr-2">N1</div>
+                <div> Trời lạnh do thiếu em (0 độ)</div>
             </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <div class="news-item small">
-            <p>Không có tin tức nào.</p>
+            <div>
+                <button class="btn">Thông tin</button>
+                <button class="btn logout">Log Out</button>
+            </div>
         </div>
-    <?php endif; ?>
-</section>
+    </header>
+
+    <section class="banner">
+        <div class="banner-content"></div>
+    </section>
+
+    <section class="grid-news">
+        <?php if (!empty($news)): ?>
+            <?php foreach ($news as $item): ?>
+                <a href="../news/detail.php?id=<?= htmlspecialchars($item['id']) ?>" style="text-decoration: none; color: inherit;">
+
+                    <div class="news-item small">
+                        <div class="image"
+                            style="background-image: url('../../uploads/<?= htmlspecialchars(basename($item['image'])) ?>');">
+                        </div>
+                        <p>
+
+
+                            <?= htmlspecialchars($item['title']) ?>
+
+                        </p>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="news-item small">
+                <p>Không có tin tức nào.</p>
+            </div>
+        <?php endif; ?>
+    </section>
 
 </body>
+
 </html>

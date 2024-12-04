@@ -52,5 +52,16 @@ class AdminController {
         include "../views/admin/news/add.php";
     }
     
+
+    public function show($id) {
+        $article = $this->newsModel->getById($id);
+
+        if (!$article) {
+            echo "<h1>Bài báo không tồn tại.</h1>";
+            exit();
+        }
+
+        include "../views/news/detail/php";
+    }
 }
 ?>

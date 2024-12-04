@@ -11,6 +11,16 @@ switch ($action) {
     case 'create':
         $controller->create();
         break;
+
+    case 'show':
+        if (isset($_GET['id'])) {
+            $id = (int)$_GET['id'];
+            $controller->show($id);
+        } else {
+            echo "ID không hợp lệ.";
+            exit;
+        }
+        break;
     default:
         $controller->index();
         break;

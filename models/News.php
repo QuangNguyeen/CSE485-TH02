@@ -19,7 +19,7 @@ class News {
             die("Query Error: " . $this->db->error);
         }
 
-        return ($result->num_rows > 0) ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        return ($result->num_rows > 0) ? $result->fetch_all(mode: MYSQLI_ASSOC) : [];
     }
 
     // Thêm tin tức mới
@@ -38,6 +38,22 @@ class News {
         }
 
         return true;
+    }
+
+    public function getById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM news WHERE id = ?");
+        
+        if ($stmt === false) {
+            die("Prepare failed: " . $this->db->error);
+        }
+
+        // Binds the parameter to the SQL query
+        $stmt->bind_param("i", $id); // 'i' for integer
+        $stmt->execute();
+
+        // Lấy kết quả
+        $result = $stmt->get_result();
+        return $result->fetch_assoc(); // fetch_assoc() để lấy dữ liệu dưới dạng mảng liên kết
     }
 }
 ?>
