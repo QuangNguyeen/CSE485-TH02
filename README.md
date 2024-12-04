@@ -1,5 +1,5 @@
 ## Các thành viên
-### 1. Nguyễn Văn Quang - main: Edit, Delte. Giao diện Admin
+### 1. Nguyễn Văn Quang - main: Edit, Delte. Giao diện Admin, Xây dựng lớp Controller
 ### 2. Ngô Quang Anh - Code giao diện chính và chức năng thêm mới
 ### 3. Nguyễn Việt Hùng - Đăng nhập. Đăng xuất
 ### 4. Nguyễn Sỹ Kiên - CSDL
