@@ -10,18 +10,16 @@
     <div class="container">
         <h1>Sửa thông tin sách</h1>
         <form action="edit.php" method="POST">
-            <label for="title">Tiêu đề sách</label>
+            <label for="title">Tiêu đề bài báo</label>
             <input type="text" id="title" name="title" value="Tiêu đề hiện tại" required>
             
-            <label for="publishedYear">Năm xuất bản</label>
-            <input type="number" id="publishedYear" name="publishedYear" value="2023" required>
+            <label for="content">Nội dung:</label>
+            <textarea name="content" required></textarea>
             
-            <label for="genre">Thể loại</label>
-            <select id="genre" name="genre">
-                <option value="Tiểu thuyết" selected>Tiểu thuyết</option>
-                <option value="Khoa học">Khoa học</option>
-                <option value="Lịch sử">Lịch sử</option>
-            </select>
+            <label for="image">Hình ảnh:</label>
+            <input type="file" name="image" required>
+            <label for="category_id">ID Danh mục:</label>
+            <input type="number" name="category_id" required>
             
             <button type="submit">Cập nhật</button>
         </form>
