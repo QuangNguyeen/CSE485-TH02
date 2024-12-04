@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/../config/Database.php';
 class User{
     private $id;
     private $userName;
@@ -33,5 +34,19 @@ class User{
     }
     public function setRole($role){
         $this->role = $role;
+    }
+    public function validationLogin($userName, $password)
+    {
+        $db = new Database();
+        $connection = $db::getConnection();
+        if($connection === null){
+            throw new Exception('Failed in connect database');
+
+        }
+        try{
+
+        }catch (PDOException $e){
+            throw new Exception('Failed in query database'.$e->getMessage());
+    }
     }
 }
