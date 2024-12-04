@@ -24,19 +24,21 @@ CREATE TABLE news (
 );
 
 INSERT INTO categories (name) VALUES
-('Chill Guy'),
-('N199@'),
-('Anh try say gex'),
-('Nguyen Quynh'),
-('Pickleball');
+('Technology'),
+('Sports'),
+('Entertainment');
 
-INSERT INTO news (title, content, created_at, category_id) VALUES
-('What is "...just a chill guy"', 'Trending meme last 2024', NOW(), 1),
-('Business Growth Tips', 'Top tips for growing your business...', 'business.jpg', NOW(), 2),
-('Health Benefits of Yoga', 'Discover the health benefits of yoga...', 'yoga.jpg', NOW(), 3),
-('World Cup Highlights', 'Latest highlights from the World Cup...', 'sports.jpg', NOW(), 4),
-('Top Movies of 2024', 'Check out the top movies of 2024...', 'movies.jpg', NOW(), 5);
-
+INSERT INTO news (title, content, image, created_at, category_id) VALUES
+    ('New iPhone Release', 'Apple unveils the latest iPhone model with groundbreaking features.', 'iphone.jpg', NOW(), 1),
+    ('Football World Cup', 'The most anticipated sporting event of the year kicks off.', 'football.jpg', NOW(), 2),
+    ('Hollywood Blockbuster', 'A new superhero movie takes the box office by storm.', 'movie.jpg', NOW(), 3),
+    ('Tech Startup Funding', 'A promising tech startup secures significant funding.', 'startup.jpg', NOW(), 1),
+    ('Olympic Games', 'The greatest athletes in the world compete for glory.', 'olympics.jpg', NOW(), 2),
+    ('Music Festival', 'A legendary music festival returns with a star-studded lineup.', 'music.jpg', NOW(), 3),
+    ('AI Breakthrough', 'A major advancement in artificial intelligence is announced.', 'ai.jpg', NOW(), 1),
+    ('Basketball Championship', 'The NBA Finals is a thrilling showdown between two rivals.', 'basketball.jpg', NOW(), 2),
+    ('Award Show', 'Celebrities gather to celebrate the best in film and television.', 'awards.jpg', NOW(), 3),
+    ('Gaming Console Launch', 'The newest gaming console hits the market.', 'gaming.jpg', NOW(), 1);
 
 INSERT INTO users (username, password, role) VALUES
 ('admin', '123456', 1);
