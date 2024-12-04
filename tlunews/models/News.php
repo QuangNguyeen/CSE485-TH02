@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/../config/Database.php';
 class News{
     private $id;
     private $title;

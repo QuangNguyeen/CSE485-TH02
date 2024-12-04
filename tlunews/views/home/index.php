@@ -1,161 +1,135 @@
+<?php
+require_once(__DIR__ . '/../../models/News.php');
+
+$news = new News();
+$allNews = $news->getAll();
+?>
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Layout</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <title>Homepage - News</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff !important;
+        }
+        .hero {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 50px 0;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.25rem;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
-<style>
-    /* Reset cơ bản */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    padding: 10px;
-}
-
-/* Header */
-.header {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-
-}
-
-.header-content .btn {
-    background: white;
-    color: #007bff;
-    border: none;
-    padding: 10px 15px;
-    margin: 0 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.header-content .logout {
-    background-color: #dc3545;
-    color: white;
-}
-
-.header-content .btn:hover {
-    opacity: 0.8;
-}
-
-/* Banner */
-.banner .banner-content {
-    width: 100%;
-    height: 200px;
-    background: #ddd;
-    margin-bottom: 20px;
-}
-
-/* News Section */
-.news-section {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.news-section .news-item.large {
-    flex: 2;
-    background: #ddd;
-    height: 150px;
-}
-
-.news-section .news-item.detail {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f4f4f9;
-    padding: 20px;
-    font-weight: bold;
-    color: #555;
-}
-
-/* Grid News */
-.grid-news {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-.grid-news .news-item {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    text-align: center;
-}
-
-.grid-news .news-item .image {
-    background: #ddd;
-    height: 100px;
-}
-
-.grid-news .news-item p {
-    padding: 10px;
-    font-weight: bold;
-    color: #555;
-}
-
-</style>
 <body>
-    <header class="header">
-        <div class="header-content d-flex justify-content-between">
-           <div class = "left d-flex align-items-center ">
-           <div class="icon mr-2"></div>
-           <div>THUY LOI UNIVERSITY NEWS</div>
-           </div>
-           <div>
-            <button class="btn">About</button>
-            <button class="btn logout">Log Out</button>
-            </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="index.php">HOME</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <?php if (isset($_SESSION['username'])): ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Hello, <strong><?= $_SESSION['username'] ?></strong>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../admin/login.php">Login</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
         </div>
-    </header>
+    </div>
+</nav>
 
-    <section class="banner">
-        <div class="banner-content"></div>
-    </section>
+<!-- Hero Section -->
+<section class="hero text-center">
+    <div class="container">
+        <h1>Welcome to News Portal</h1>
+        <p>Discover the latest and most exciting news updates from around the globe.</p>
+    </div>
+</section>
 
-    <section class="news-section">
-        <div class="news-item large">
-            <div class="image"></div>
-        </div>
-        <div class="news-item detail">
-            <p>DETAIL NEWS</p>
-        </div>
-    </section>
+<!-- News Section -->
+<section class="container mt-5">
+    <h2 class="text-center mb-4">Latest News</h2>
+    <div class="row">
+        <?php if (!empty($allNews)): ?>
+            <?php foreach ($allNews as $item): ?>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="../../<?= $item['image']; ?>" class="card-img-top" alt="<?= $item['title']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $item['title'] ?></h5>
+                            <p class="card-text"><?= substr($item['content'], 0, 100) ?>...</p>
+                            <a href="../news/detail.php?id=<?= $item['id'] ?>" class="btn btn-primary">Read more</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="col-12 text-center text-muted">No news available at the moment!</p>
+        <?php endif; ?>
+    </div>
+</section>
 
-    <section class="grid-news">
-        <div class="news-item small">
-            <div class="image"></div>
-            <p>DETAIL NEWS</p>
-        </div>
-        <div class="news-item small">
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2024 News Portal | Designed by CSE485</p>
+    </div>
+</footer>
 
-            <div class="image"></div>
-            <p>DETAIL NEWS</p>
-        </div>
-        <div class="news-item small">
-            <div class="image"></div>
-            <p>DETAIL NEWS</p>
-        </div>
-        <div class="news-item small">
-
-            <div class="image"></div>
-            <p>DETAIL NEWS</p>
-        </div>
-    </section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
